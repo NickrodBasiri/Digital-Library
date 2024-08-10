@@ -4,35 +4,57 @@ const titleInput = document.querySelector("#title");
 const authorInput = document.querySelector("#author");
 const pagesInput = document.querySelector("#pages");
 const submitButton = document.querySelector("#submit");
-const form = document.querySelector(".form")
+const form = document.querySelector(".form");
+const closeButton = document.querySelector(".closeDialog");
+const readButton = document.querySelector("#read");
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    const readStatus = readButton.checked;
     const data = new FormData(e.target);
-    myLibrary.push(new book
-        (data.get("title"), data.get("author"), data.get("pages")));
+    myLibrary.push(new book(
+        data.get("title"), 
+        data.get("author"), 
+        data.get("pages"), 
+        readStatus
+    ));
     updateDisplay();
     dialog.close();
-})
+    form.reset();
+});
+
+closeButton.addEventListener("click", () => {
+    dialog.close();
+});
 
 function book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
+    this.read = read;
+    this.index = "";
 }
 
+book.prototype.hasRead = function() {
+    this.read = !this.read;
+};
+
 function updateDisplay() {
-    // to clear display so there's no duplicate cards
+    // Clear display so there's no duplicate cards
     let child = libraryContainer.lastElementChild;
-    while(child) {
+    while (child) {
         libraryContainer.removeChild(child);
         child = libraryContainer.lastElementChild;
     }
 
-    myLibrary.forEach(element => {
+    myLibrary.forEach((element, index) => {
         const bookCard = document.createElement("div");
         bookCard.classList.add("bookCard");
-    
+
+        const bookIndex = document.createElement("p");
+        bookIndex.innerText = index + 1;
+        bookCard.appendChild(bookIndex);
+
         const title = document.createElement("h1");
         title.innerText = element.title;
         title.style.textAlign = "center";
@@ -47,20 +69,30 @@ function updateDisplay() {
         pages.innerText = element.pages;
         pages.style.textAlign = "center";
         bookCard.appendChild(pages);
+
+        const readBox = document.createElement("input");
+        readBox.setAttribute("type", "checkbox");
+        readBox.checked = element.read;
+        readBox.addEventListener("change", () => {
+            element.read = readBox.checked;
+        });
+        bookCard.appendChild(readBox);
+
+        const close = document.createElement("button");
+        close.innerText = "Remove";
+        close.addEventListener("click", () => {
+            bookCard.remove();
+            myLibrary.splice(index, 1);
+            updateDisplay();
+        });
+        bookCard.appendChild(close);
     
         libraryContainer.appendChild(bookCard);
     });
 }
-
-
 
 function showNewBookDialog() {
     dialog.showModal();
 }
 
 const libraryContainer = document.querySelector(".libraryContainer");
-
-
-
-
-
