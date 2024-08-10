@@ -35,10 +35,6 @@ function book(title, author, pages, read) {
     this.index = "";
 }
 
-book.prototype.hasRead = function() {
-    this.read = !this.read;
-};
-
 function updateDisplay() {
     // Clear display so there's no duplicate cards
     let child = libraryContainer.lastElementChild;
@@ -61,25 +57,31 @@ function updateDisplay() {
         bookCard.appendChild(title);
     
         const author = document.createElement("h2");
-        author.innerText = element.author;
+        author.innerText = `Author: ${element.author}`;
         author.style.textAlign = "center";
         bookCard.appendChild(author);
         
         const pages = document.createElement("p");
-        pages.innerText = element.pages;
+        pages.innerText = `${element.pages} pages`;
         pages.style.textAlign = "center";
         bookCard.appendChild(pages);
+
+        const readContainer = document.createElement("div");
+        readContainer.style.textAlign = "center";
+
+        const readLabel = document.createElement("label");
+        readLabel.innerText = "Read: ";
 
         const readBox = document.createElement("input");
         readBox.setAttribute("type", "checkbox");
         readBox.checked = element.read;
-        readBox.addEventListener("change", () => {
-            element.read = readBox.checked;
-        });
-        bookCard.appendChild(readBox);
+        readLabel.appendChild(readBox);
+        readContainer.appendChild(readLabel);
+        bookCard.appendChild(readContainer);
 
         const close = document.createElement("button");
         close.innerText = "Remove";
+        close.id = "closeButton";
         close.addEventListener("click", () => {
             bookCard.remove();
             myLibrary.splice(index, 1);

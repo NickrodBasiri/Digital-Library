@@ -1,18 +1,92 @@
+body {
+    margin: 0;
+    background-color: whitesmoke;
+}
+
 .bookCard {
-    background-color: gray;
+    background-color: beige;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
     height: 450px;
     width: 100%;
     max-width: 320px;
     justify-self: center;
+    border-radius: 16px;
+    border: 1px solid gray;
+    box-shadow: 4px 4px 2px lightgray;
+    font-family: 'Times New Roman', Times, serif;
 }
 
 .libraryContainer {
     display: grid;
-    height: 100vh;
-    width: 100vw;
     grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
     gap: 16px;
+    padding: 16px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 128px;
+    background-color: burlywood;
+    border-bottom: 2px solid gray;
+}
+
+.header > h1 {
+    margin: 8px;
+}
+
+.newBookButton {
+    height: 64px;
+    width: 256px;
+    background-color: beige;
+    border-radius: 16px;
+    border: 2px solid gray;
+    font-size: 32px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.form {
+    height: 260px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    margin: 0;
+    background-color: lightgray;
+    padding: 8px;
+}
+
+.closeDialog {
+    height: 32px;
+    width: 32px;
+    align-self: flex-end;
+    border-radius: 8px;
+}
+
+#title, 
+#author, 
+#pages {
+    width: 280px;
+}
+
+.readCheck {
+    display: flex;
+}
+
+#newBook {
+    padding: 0;
+}
+
+#closeButton {
+    height: 32px;
+    width: 128px;
+    background-color: beige;
+    border-radius: 8px;
+    border: 2px solid gray;
+    font-family: 'Times New Roman', Times, serif;
 }
