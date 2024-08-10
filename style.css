@@ -1,0 +1,18 @@
+.bookCard {
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 450px;
+    width: 100%;
+    max-width: 320px;
+    justify-self: center;
+}
+
+.libraryContainer {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    gap: 16px;
+}
